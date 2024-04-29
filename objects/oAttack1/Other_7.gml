@@ -3,9 +3,12 @@
 
 
 
+
+
 creatorId.attackInProgress = false;
-creatorId.attackCD = 20;
+creatorId.stunCD = 30;
 creatorId.state = STATE.COOLDOWN;
+
 
 //ds_list_clear(hitList);
 ds_list_destroy(hitList);

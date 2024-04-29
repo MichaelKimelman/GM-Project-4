@@ -2,10 +2,14 @@
 // You can write your code in this editor
 
 
+
+//KOPIERAD FRÅN oAttack0
+
+
 //HITLIST CHECKAR COLLISION MED ENEMIES
 var _stepHitList = ds_list_create();
 
-var _hits = instance_place_list(x, y, oEnemy0, _stepHitList,false);
+var _hits = instance_place_list(x, y, oPlayer, _stepHitList,false);
 
 if(_hits > 0)
 {
@@ -17,7 +21,7 @@ if(_hits > 0)
 		if(ds_list_find_index(hitList, _hit) == -1)
 		{
 			ds_list_add(hitList, _hit);
-			_hit.hp -= 4;
+			_hit.hp -= 10;
 			_hit.state = STATE.KNOCKEDDOWN;
 			_hit.stunCD = 60;
 			_hit.moveDir = point_direction( creatorId.x, creatorId.y, _hit.x, _hit.y);

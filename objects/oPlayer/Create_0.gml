@@ -3,7 +3,7 @@
 
 event_inherited();
 
-state = PlayerFreeState;
+state = STATE.IDLE;
 
 moveSpd = 4;
 
@@ -14,3 +14,11 @@ boostValue = 1;
 boostTime = 0;
 
 attackInProgress = false;
+
+attackCD = 0;
+
+entityScript[STATE.IDLE] = PlayerFreeState;
+entityScript[STATE.ATTACK] = AttackState;
+entityScript[STATE.ACTION] = -1;
+entityScript[STATE.MOVE] = -1;
+entityScript[STATE.COOLDOWN] = AttackCoolDown;

@@ -12,7 +12,20 @@ attackKey = mouse_check_button(mb_left);
 inputDir = point_direction(0, 0, rightKey - leftKey, downKey - upKey);
 inputMagnitude = (rightKey - leftKey != 0) || (downKey - upKey != 0);
 
+if(markedForDestruction)
+{
+	instance_destroy();
+}
+
 if(!global.gamePaused)
 {
-	script_execute(state);
+	if(entityScript[state] != -1)
+	{
+		script_execute(entityScript[state]);
+	}
+}
+
+if(hp <= 0)
+{
+	markedForDestruction = true;
 }

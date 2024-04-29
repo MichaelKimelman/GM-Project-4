@@ -1,14 +1,23 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+
+
+
+
 ///
 ///BASE STATE NO CODE RUN
 ///
 function baseState()
 {
-	if(instance_exists(oPlayer))
+	if(instance_exists(oPlayer) && point_distance(x, y, oPlayer.x, oPlayer.y) < 300)
 	{
-		target = oPlayer;
+		target = oPlayer.id;
 		//CHANGE STATE TO MOVE
+		
+		if(entityScript[STATE.MOVE] != -1)
+		{
+			state = STATE.MOVE;
+		}
 	}
 	else
 	{
@@ -18,6 +27,86 @@ function baseState()
 	if(hp <= 0)
 	{
 		instance_destroy();
+	}
+}
+
+
+
+
+///
+/// ENEMY MOVE
+///
+function EnemyMove()
+{
+	if(!instance_exists(oPlayer))
+	{
+		target = noone;
+		state = STATE.IDLE;
+	}
+	
+	if(target != noone && target != undefined)
+	{
+		
+		moveDir = point_direction(x, y, target.x, target.y);
+		
+		if(point_distance(x, y, target.x, target.y) <= 128)
+		{
+			stunCD = 20;
+			state = STATE.ATTACK;
+		}
+		
+	}
+	else
+	{
+		//state = STATE.IDLE;
+	}
+	
+	
+	
+	xSpd = lengthdir_x(moveSpd, moveDir);
+	ySpd = lengthdir_y(moveSpd, moveDir);
+	
+	x += xSpd;
+	y += ySpd;
+	
+	if(hp <= 0)
+	{
+		instance_destroy();
+	}
+}
+
+
+
+
+///
+///Knocked Down
+///
+function KnockedDown()
+{
+	//if(hp <= 0)
+	//{
+	//	instance_destroy();
+	//}
+	//if(stunCD == 0)
+	//{
+	//	stunCD = 60;
+	//	moveDir = point_direction( xVariable, yVariable, x, y);
+	//}
+	
+	if(stunCD != 0)
+	{
+		stunCD--;
+		if(stunCD > 40)
+		{
+			x += lengthdir_x(2, moveDir);
+			y += lengthdir_y(2, moveDir);
+		}
+		
+	}
+	
+	if(stunCD == 0)
+	{
+		state = STATE.IDLE;
 	}
 }
 
@@ -71,7 +160,7 @@ function PlayerFreeState()
 	//ATTACKINITIATE
 	if(attackKey)
 	{
-		state = AttackState;
+		state = STATE.ATTACK;
 		//attackInProgress = true;
 	}
 }
@@ -90,5 +179,77 @@ function AttackState()
 		attack.image_angle = point_direction(x,y,mouse_x,mouse_y);
 		attack.creatorId = id;
 		attackInProgress = true;
+	}
+}
+
+
+
+
+///
+///ENEMY ATTACK 1
+///
+function EnemyAttackState()
+{
+	if(stunCD > 0)
+	{
+		stunCD--;
+	}
+	if(!attackInProgress && stunCD == 0)
+	{
+		if(target != noone && target != undefined)
+		{
+			var attack = instance_create_layer(x, y, "Instances", oAttack1 );
+			attack.image_angle = point_direction(x,y,target.x ,target.y);
+			attack.creatorId = id;
+			attackInProgress = true;
+		}
+		else
+		{
+			state = STATE.IDLE;
+		}
+	}
+}
+
+
+
+
+///
+///Cooldown After Enemy Attack
+///
+function EnemyCooldown()
+{
+	if(stunCD > 0)
+	{
+		stunCD--;
+	}
+	
+	if(stunCD == 0)
+	{
+		state = STATE.IDLE;
+	}
+}
+
+
+
+
+///
+///Attack Cooldown
+///
+function AttackCoolDown()
+{
+	if(attackCD > 0)
+	{
+		attackCD--;
+	}
+	
+	if(attackCD < 15 && attackKey)
+	{
+		state = STATE.ATTACK;
+		attackCD = 0;
+	}
+	
+	if(attackCD == 0)
+	{
+		state = STATE.IDLE;
 	}
 }
