@@ -21,7 +21,7 @@ if(_hits > 0)
 		if(ds_list_find_index(hitList, _hit) == -1)
 		{
 			ds_list_add(hitList, _hit);
-			_hit.hp -= 10;
+			_hit.hp -= 3;
 			_hit.state = STATE.KNOCKEDDOWN;
 			_hit.stunCD = 60;
 			_hit.moveDir = point_direction( creatorId.x, creatorId.y, _hit.x, _hit.y);

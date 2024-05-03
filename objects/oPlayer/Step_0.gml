@@ -27,5 +27,6 @@ if(!global.gamePaused)
 
 if(hp <= 0)
 {
-	markedForDestruction = true;
+	//markedForDestruction = true;
+	state = STATE.DEAD;
 }

@@ -9,19 +9,27 @@
 ///
 function baseState()
 {
-	if(instance_exists(oPlayer) && point_distance(x, y, oPlayer.x, oPlayer.y) < 300)
+	if(instance_exists(oPlayer) && oPlayer.state != STATE.DEAD)
 	{
 		target = oPlayer.id;
 		//CHANGE STATE TO MOVE
 		
-		if(entityScript[STATE.MOVE] != -1)
+		if(entityScript[STATE.MOVETOTARGET] != -1)
 		{
-			state = STATE.MOVE;
+			state = STATE.MOVETOTARGET;
 		}
 	}
-	else
+	else if(oPlayer.state == STATE.DEAD)/////FIXA
 	{
-		target = noone;
+		if(target != noone)
+		{
+			target = noone;
+		}
+
+		if(point_distance(x, y, xstart, ystart) > 20)
+		{
+			state = STATE.RETURN;
+		}
 	}
 	
 	if(hp <= 0)
@@ -38,7 +46,7 @@ function baseState()
 ///
 function EnemyMove()
 {
-	if(!instance_exists(oPlayer))
+	if(oPlayer.state == STATE.DEAD)
 	{
 		target = noone;
 		state = STATE.IDLE;
@@ -59,6 +67,53 @@ function EnemyMove()
 	else
 	{
 		//state = STATE.IDLE;
+	}
+	
+	
+	
+	xSpd = lengthdir_x(moveSpd, moveDir);
+	ySpd = lengthdir_y(moveSpd, moveDir);
+	
+	x += xSpd;
+	y += ySpd;
+	
+	if(hp <= 0)
+	{
+		instance_destroy();
+	}
+}
+
+
+
+
+///
+/// ENEMY MOVE TO POSITION
+///
+function EnemyMovePosition()
+{
+	//if(oPlayer.state == STATE.DEAD)
+	//{
+	//	target = noone;
+	//	state = STATE.IDLE;
+	//}
+	
+	if(targetX != 0 && targetY != 0)
+	{
+		
+		moveDir = point_direction(x, y, targetX, targetY);
+		
+		if(point_distance(x, y, targetX, targetY) < 10)
+		{
+			stunCD = 20;
+			targetX = 0;
+			targetY = 0;
+			state = STATE.IDLE;
+		}
+		
+	}
+	else
+	{
+		state = STATE.IDLE;
 	}
 	
 	
@@ -205,7 +260,7 @@ function EnemyAttackState()
 		}
 		else
 		{
-			state = STATE.IDLE;
+			state = STATE.RETURN;
 		}
 	}
 }
@@ -252,4 +307,38 @@ function AttackCoolDown()
 	{
 		state = STATE.IDLE;
 	}
+}
+
+
+
+
+///
+///DEAD
+///
+function DeadState()
+{
+	if(object_get_name(object_index) == "oPlayer")
+	{
+		sprite_index = sPlayerDead0;
+	}
+	
+	if(leftKey)
+	{
+		hp = 10;
+		sprite_index = sPlayer0;
+		state = STATE.IDLE;
+	}
+}
+
+
+
+
+///
+///RETURN TO START POSITION
+///
+function ReturnState()
+{
+	targetX = id.xstart;
+	targetY = id.ystart;
+	state = STATE.MOVETOPOSITION;
 }

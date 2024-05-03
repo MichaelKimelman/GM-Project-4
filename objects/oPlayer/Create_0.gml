@@ -20,5 +20,6 @@ attackCD = 0;
 entityScript[STATE.IDLE] = PlayerFreeState;
 entityScript[STATE.ATTACK] = AttackState;
 entityScript[STATE.ACTION] = -1;
-entityScript[STATE.MOVE] = -1;
+entityScript[STATE.MOVETOTARGET] = -1;
 entityScript[STATE.COOLDOWN] = AttackCoolDown;
+entityScript[STATE.DEAD] = DeadState;

@@ -28,6 +28,7 @@
     {"name":"MACROS","order":1,"path":"scripts/MACROS/MACROS.yy",},
     {"name":"pAttack","order":1,"path":"objects/pAttack/pAttack.yy",},
     {"name":"sAttack2","order":2,"path":"sprites/sAttack2/sAttack2.yy",},
+    {"name":"sPlayerDead0","order":1,"path":"sprites/sPlayerDead0/sPlayerDead0.yy",},
     {"name":"sAttack1","order":1,"path":"sprites/sAttack1/sAttack1.yy",},
     {"name":"oAttack1","order":2,"path":"objects/oAttack1/oAttack1.yy",},
     {"name":"oEntity","order":2,"path":"objects/oEntity/oEntity.yy",},

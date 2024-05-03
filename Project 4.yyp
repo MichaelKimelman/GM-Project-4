@@ -46,6 +46,7 @@
     {"id":{"name":"pAttack","path":"objects/pAttack/pAttack.yy",},},
     {"id":{"name":"sEnemy0","path":"sprites/sEnemy0/sEnemy0.yy",},},
     {"id":{"name":"sAttack2","path":"sprites/sAttack2/sAttack2.yy",},},
+    {"id":{"name":"sPlayerDead0","path":"sprites/sPlayerDead0/sPlayerDead0.yy",},},
     {"id":{"name":"entityScripts","path":"scripts/entityScripts/entityScripts.yy",},},
     {"id":{"name":"oEnemy0","path":"objects/oEnemy0/oEnemy0.yy",},},
     {"id":{"name":"oGame","path":"objects/oGame/oGame.yy",},},
