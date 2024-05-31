@@ -6,8 +6,11 @@ upKey = keyboard_check(ord("W"));
 rightKey = keyboard_check(ord("D"));
 downKey = keyboard_check(ord("S"));
 
+oneButton = keyboard_check(ord("1"));
+
 spaceKey = keyboard_check_pressed(vk_space);
 attackKey = mouse_check_button(mb_left);
+rightMouseButton = mouse_check_button(mb_left);
 
 inputDir = point_direction(0, 0, rightKey - leftKey, downKey - upKey);
 inputMagnitude = (rightKey - leftKey != 0) || (downKey - upKey != 0);
@@ -27,6 +30,6 @@ if(!global.gamePaused)
 
 if(hp <= 0)
 {
-	//markedForDestruction = true;
-	state = STATE.DEAD;
+	markedForDestruction = true;
+	//state = STATE.DEAD;
 }

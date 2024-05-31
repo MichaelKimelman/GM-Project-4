@@ -13,7 +13,7 @@ targetY= 0;
 markedForDestruction = false;
 
 moveDir = 0;
-moveSpd = 2;
+moveSpd = 1;
 
 stunCD = 0;
 attackInProgress = false;

@@ -3,3 +3,5 @@
 
 
 global.gamePaused = false;
+
+global.playerInventory = ds_list_create();

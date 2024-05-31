@@ -33,8 +33,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "sAttack2",
-    "path": "sprites/sAttack2/sAttack2.yy",
+    "name": "sAttack3",
+    "path": "sprites/sAttack3/sAttack3.yy",
   },
   "spriteMaskId": null,
   "visible": true,
